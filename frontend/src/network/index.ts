@@ -11,5 +11,6 @@ export type TaskJsonModel = Readonly<{
   updated_at: string;
 }>;
 
-export const fetchTasks = (): Promise<AxiosResponse<any>> =>
-  axios.get(`${baseUrl}/tasks`);
+export const fetchTasks = (): Promise<AxiosResponse<
+  ReadonlyArray<TaskJsonModel>
+>> => axios.get(`${baseUrl}/tasks`);
