@@ -14,3 +14,16 @@ export type TaskJsonModel = Readonly<{
 export const fetchTasks = (): Promise<AxiosResponse<
   ReadonlyArray<TaskJsonModel>
 >> => axios.get(`${baseUrl}/tasks`);
+
+type TaskCreateParams = Readonly<{
+  title: string;
+  description: string;
+}>;
+
+export const createTask = (
+  data: TaskCreateParams
+): Promise<AxiosResponse<any>> =>
+  axios.post(`${baseUrl}/tasks`, {
+    title: data.title,
+    description: data.description
+  });
