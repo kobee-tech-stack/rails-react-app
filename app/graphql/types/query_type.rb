@@ -18,5 +18,13 @@ module Types
     def task(id:)
       Task.find(id)
     end
+
+    field :tasks, TaskType.connection_type, null: true do
+      description "Find all tasks"
+    end
+
+    def tasks
+      Task.all
+    end
   end
 end
