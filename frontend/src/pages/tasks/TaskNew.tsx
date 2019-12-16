@@ -45,7 +45,7 @@ export const TaskNew: React.FC = () => {
           onChange={handleChangeDescription}
         />
       </div>
-      <Button variant={"outlined"} onClick={handleSubmit}>
+      <Button variant={"contained"} color={"primary"} onClick={handleSubmit}>
         Submit
       </Button>
     </div>

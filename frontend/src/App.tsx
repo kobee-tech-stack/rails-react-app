@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
-import { css } from "@emotion/core";
 import { Home } from "./pages/Home";
 import { TaskNew } from "./pages/tasks/TaskNew";
+import { TaskEdit } from "./pages/tasks/TaskEdit";
+import { TaskShow } from "./pages/tasks/TaskShow";
 
 export const App: React.FC = () => {
   return (
@@ -17,25 +18,23 @@ export const App: React.FC = () => {
               </Link>
             </Typography>
             <Typography>
-              <Link to="/tasks/new" style={{ color: "#fff" }}>
+              <Link to="/task/new" style={{ color: "#fff" }}>
                 新規作成
-              </Link>
-            </Typography>
-            <Typography>
-              <Link to="/users" style={{ color: "#fff" }}>
-                Users
               </Link>
             </Typography>
           </Toolbar>
         </AppBar>
         <Switch>
-          <Route path="/tasks/new">
+          <Route path={"/task/new"}>
             <TaskNew />
           </Route>
-          <Route path="/users">
-            <Users />
+          <Route path={"/task/:id/edit"}>
+            <TaskEdit />
           </Route>
-          <Route path="/">
+          <Route path={"/task/:id"}>
+            <TaskShow />
+          </Route>
+          <Route path={"/"}>
             <Home />
           </Route>
         </Switch>
@@ -43,11 +42,3 @@ export const App: React.FC = () => {
     </Router>
   );
 };
-
-function Users() {
-  return <h2>Users</h2>;
-}
-
-const linkStyle = css`
-  color: #fff;
-`;

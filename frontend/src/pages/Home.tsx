@@ -2,9 +2,10 @@ import * as React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { fetchTasks, TaskJsonModel } from "../network";
-import { Card } from "@material-ui/core";
+import { Card, Link, Typography } from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
 
-type Task = Readonly<{
+export type Task = Readonly<{
   id: number;
   title: string;
   limitDate: string | null;
@@ -21,15 +22,25 @@ export const Home: React.FC = () => {
     })();
   }, []);
   return (
-    <Card>
+    <>
       {tasks.map((task, index) => (
-        <div key={index}>{task.title}</div>
+        <Card
+          key={index}
+          style={{ marginBottom: "10px", padding: "10px", width: "300px" }}
+        >
+          <Typography variant={"h5"}>{task.title}</Typography>
+          <Typography>{task.description}</Typography>
+          <Link href={`./task/${task.id}/edit`}>
+            <EditIcon />
+          </Link>
+          <Link href={`./task/${task.id}`}>詳細</Link>
+        </Card>
       ))}
-    </Card>
+    </>
   );
 };
 
-const taskMapper = (data: TaskJsonModel): Task => ({
+export const taskMapper = (data: TaskJsonModel): Task => ({
   id: data.id,
   title: data.title,
   description: data.description,
