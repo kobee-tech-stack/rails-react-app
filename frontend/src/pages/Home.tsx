@@ -4,6 +4,10 @@ import { useEffect } from "react";
 import { fetchTasks, TaskJsonModel } from "../network";
 import { Card, Link, Typography } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
+import { loader } from "graphql.macro";
+import { useQuery } from "@apollo/client";
+import { GetTasksQuery } from "../generated/graphql";
+const GET_TASKS = loader("../graphql/getTasks.graphql");
 
 export type Task = Readonly<{
   id: number;
@@ -13,6 +17,8 @@ export type Task = Readonly<{
 }>;
 
 export const Home: React.FC = () => {
+  const result = useQuery<GetTasksQuery>(GET_TASKS);
+  console.log(result, "result");
   const [tasks, setTasks] = useState<ReadonlyArray<Task>>([]);
   useEffect(() => {
     (async () => {

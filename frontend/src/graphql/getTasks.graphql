@@ -1,11 +1,9 @@
 query GetTasks {
     tasks {
-        edges {
-            node {
-                id
-                title
-                description
-            }
+        nodes {
+            id
+            title
+            description
         }
     }
 }

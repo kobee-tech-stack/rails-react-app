@@ -109,17 +109,10 @@ export type GetTasksQueryVariables = {};
 export type GetTasksQuery = { __typename?: "Query" } & {
   tasks: Maybe<
     { __typename?: "TaskConnection" } & {
-      edges: Maybe<
+      nodes: Maybe<
         Array<
           Maybe<
-            { __typename?: "TaskEdge" } & {
-              node: Maybe<
-                { __typename?: "Task" } & Pick<
-                  Task,
-                  "id" | "title" | "description"
-                >
-              >;
-            }
+            { __typename?: "Task" } & Pick<Task, "id" | "title" | "description">
           >
         >
       >;
