@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ddb43b46-368a-405d-afba-101856c2d0a2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/graphql/types/query_type.rb" beforeDir="false" afterPath="$PROJECT_DIR$/../app/graphql/types/query_type.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/codegen.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/schema.graphql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/generated/graphql.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/graphql/getTask.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/src/graphql/getTask.graphql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/tasks/TaskEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/tasks/TaskEdit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/tasks/TaskShow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/tasks/TaskShow.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../schema.graphql" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +73,7 @@
       <option name="presentableId" value="Default" />
       <updated>1573874270011</updated>
       <workItem from="1573874271152" duration="22194000" />
-      <workItem from="1577482555405" duration="32796000" />
+      <workItem from="1577482555405" duration="33115000" />
     </task>
     <servers />
   </component>
@@ -128,9 +114,9 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="385" y="210" key="run.anything.popup/0.0.1440.900@0.0.1440.900" timestamp="1577671611813" />
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1577681130209">
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1577681316328">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1577681130209" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1577681316328" />
   </component>
 </project>
