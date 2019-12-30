@@ -6,7 +6,6 @@ import { App } from "./App";
 import {
   ApolloClient,
   ApolloProvider,
-  gql,
   HttpLink,
   InMemoryCache
 } from "@apollo/client";
@@ -17,19 +16,6 @@ const client = new ApolloClient({
     uri: "http://localhost:3001/graphql"
   })
 });
-
-client
-  .query({
-    query: gql`
-      {
-        task(id: 1) {
-          id
-          title
-        }
-      }
-    `
-  })
-  .then(result => console.log(result));
 
 ReactDOM.render(
   <ApolloProvider client={client}>

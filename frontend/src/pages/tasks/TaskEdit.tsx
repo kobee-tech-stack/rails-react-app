@@ -1,75 +1,75 @@
 import * as React from "react";
-import { useParams } from "react-router-dom";
-import { useCallback, useEffect, useState } from "react";
-import { fetchTask, updateTask } from "../../network";
-import { Task, taskMapper } from "../Home";
-import { Button, TextField } from "@material-ui/core";
+import { useCallback, useEffect } from "react";
+import { Button, CircularProgress, TextField } from "@material-ui/core";
+import { ActionType, useEditTask } from "../../context/edit";
+import { toTask } from "../../util";
 
-export const TaskEdit: React.FC = () => {
-  const { id } = useParams();
-  const [task, setTask] = useState<Task | null>(null);
+export const TaskEdit: React.FC = React.memo(() => {
+  const {
+    state,
+    dispatch,
+    fetchResult: { error, data }
+  } = useEditTask();
 
-  const handleTitleChange = useCallback(e => {
-    const currentValue = e.target.value;
-    setTask(prevState => {
-      return prevState
-        ? {
-            ...prevState,
-            title: currentValue
-          }
-        : null;
-    });
-  }, []);
+  if (error) {
+    throw new Error(error.message);
+  }
 
-  const handleDescriptionChange = useCallback(e => {
-    const currentValue = e.target.value;
-    setTask(prevState => {
-      return prevState
-        ? {
-            ...prevState,
-            description: currentValue
-          }
-        : null;
-    });
-  }, []);
+  if (!data) {
+    return <CircularProgress />;
+  }
 
-  const handleSubmitButtonClick = useCallback(async () => {
-    if (task) {
-      await updateTask(task).then(result => console.log(result));
-    }
-  }, [task]);
+  const task = toTask(data.task);
+
+  const handleTitleChange = useCallback(
+    e => {
+      const value = e.target.value;
+      dispatch({
+        type: ActionType.CHANGE_TITLE,
+        payload: value
+      });
+    },
+    [dispatch]
+  );
+
+  const handleDescriptionChange = useCallback(
+    e => {
+      const value = e.target.value;
+      dispatch({
+        type: ActionType.CHANGE_DESCRIPTION,
+        payload: value
+      });
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
-    (async () => {
-      if (id) {
-        const { data } = await fetchTask(id);
-        setTask(taskMapper(data));
-      }
-    })();
-  }, [id]);
+    dispatch({ type: ActionType.INITIALIZE, payload: task });
+  }, [dispatch]);
+
+  // TODO: mutation
+  // const handleSubmitButtonClick = useCallback(async () => {
+  //   if (task) {
+  //     await updateTask(task).then(result => console.log(result));
+  //   }
+  // }, [task]);
 
   return (
     <div>
-      {task && (
-        <>
-          <div>
-            <TextField value={task.title} onChange={handleTitleChange} />
-          </div>
-          <div>
-            <TextField
-              value={task.description}
-              onChange={handleDescriptionChange}
-            />
-          </div>
-        </>
-      )}
-      <Button
-        variant={"contained"}
-        color={"primary"}
-        onClick={handleSubmitButtonClick}
-      >
+      <>
+        <div>
+          <TextField value={state.task?.title} onChange={handleTitleChange} />
+        </div>
+        <div>
+          <TextField
+            value={state.task?.description}
+            onChange={handleDescriptionChange}
+          />
+        </div>
+      </>
+      <Button variant={"contained"} color={"primary"}>
         Submit
       </Button>
     </div>
   );
-};
+});

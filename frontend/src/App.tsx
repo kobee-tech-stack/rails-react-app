@@ -5,6 +5,9 @@ import { Home } from "./pages/Home";
 import { TaskNew } from "./pages/tasks/TaskNew";
 import { TaskEdit } from "./pages/tasks/TaskEdit";
 import { TaskShow } from "./pages/tasks/TaskShow";
+import { HomeProvider } from "./context/home";
+import { EditTaskProvider } from "./context/edit";
+import { TaskShowProvider } from "./context/show";
 
 export const App: React.FC = () => {
   return (
@@ -29,13 +32,19 @@ export const App: React.FC = () => {
             <TaskNew />
           </Route>
           <Route path={"/task/:id/edit"}>
-            <TaskEdit />
+            <EditTaskProvider>
+              <TaskEdit />
+            </EditTaskProvider>
           </Route>
           <Route path={"/task/:id"}>
-            <TaskShow />
+            <TaskShowProvider>
+              <TaskShow />
+            </TaskShowProvider>
           </Route>
           <Route path={"/"}>
-            <Home />
+            <HomeProvider>
+              <Home />
+            </HomeProvider>
           </Route>
         </Switch>
       </div>

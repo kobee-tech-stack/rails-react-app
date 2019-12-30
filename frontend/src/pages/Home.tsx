@@ -1,32 +1,21 @@
 import * as React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { fetchTasks, TaskJsonModel } from "../network";
-import { Card, Link, Typography } from "@material-ui/core";
+import { Card, CircularProgress, Link, Typography } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-import { loader } from "graphql.macro";
-import { useQuery } from "@apollo/client";
-import { GetTasksQuery } from "../generated/graphql";
-const GET_TASKS = loader("../graphql/getTasks.graphql");
-
-export type Task = Readonly<{
-  id: number;
-  title: string;
-  limitDate: string | null;
-  description: string;
-}>;
+import { useHome } from "../context/home";
+import { arrayFromConnection } from "../util";
 
 export const Home: React.FC = () => {
-  const result = useQuery<GetTasksQuery>(GET_TASKS);
-  console.log(result, "result");
-  const [tasks, setTasks] = useState<ReadonlyArray<Task>>([]);
-  useEffect(() => {
-    (async () => {
-      const { data } = await fetchTasks();
-      const result = await data.map((task: TaskJsonModel) => taskMapper(task));
-      setTasks(result);
-    })();
-  }, []);
+  const { error, data } = useHome();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  if (!data) {
+    return <CircularProgress />;
+  }
+
+  const tasks = arrayFromConnection(data.tasks.nodes);
   return (
     <>
       {tasks.map((task, index) => (
@@ -45,10 +34,3 @@ export const Home: React.FC = () => {
     </>
   );
 };
-
-export const taskMapper = (data: TaskJsonModel): Task => ({
-  id: data.id,
-  title: data.title,
-  description: data.description,
-  limitDate: data.limit_date
-});

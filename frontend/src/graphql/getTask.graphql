@@ -1,4 +1,4 @@
-query GetTask($id: ID!) {
+query GetTask($id: Int!) {
     task(id: $id) {
         id
         title

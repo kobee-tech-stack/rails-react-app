@@ -40,7 +40,7 @@ export type Query = {
 };
 
 export type QueryTaskArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Int"];
 };
 
 export type QueryTasksArgs = {
@@ -95,7 +95,7 @@ export type Update_TaskPayload = {
 };
 
 export type GetTaskQueryVariables = {
-  id: Scalars["ID"];
+  id: Scalars["Int"];
 };
 
 export type GetTaskQuery = { __typename?: "Query" } & {
