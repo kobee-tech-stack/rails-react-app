@@ -1,0 +1,9 @@
+mutation UpdateTask($id:Int!, $title: String!, $description:String!) {
+  updateTaskMutation(input: {id: $id,title: $title, description: $description}) {
+    task {
+      id
+      title
+      description
+    }
+  }
+}
