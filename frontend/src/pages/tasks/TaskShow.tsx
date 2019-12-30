@@ -26,12 +26,10 @@ export const TaskShow: React.FC = React.memo(() => {
   }, [dispatch]);
 
   return (
-    <>
-      <>
-        <Typography>{state.task?.id}</Typography>
-        <Typography>{state.task?.title}</Typography>
-        <Typography>{state.task?.description}</Typography>
-      </>
-    </>
+    <div>
+      <Typography>{state.task?.id}</Typography>
+      <Typography>{state.task?.title}</Typography>
+      <Typography>{state.task?.description}</Typography>
+    </div>
   );
 });

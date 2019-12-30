@@ -8,21 +8,23 @@ import { TaskShow } from "./pages/tasks/TaskShow";
 import { HomeProvider } from "./context/home";
 import { EditTaskProvider } from "./context/edit";
 import { TaskShowProvider } from "./context/show";
+import HomeIcon from "@material-ui/icons/Home";
+import AddIcon from "@material-ui/icons/Add";
 
 export const App: React.FC = () => {
   return (
     <Router>
       <div>
         <AppBar position={"sticky"}>
-          <Toolbar>
+          <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
             <Typography>
               <Link to="/" style={{ color: "#fff" }}>
-                Home
+                <HomeIcon />
               </Link>
             </Typography>
             <Typography>
               <Link to="/task/new" style={{ color: "#fff" }}>
-                新規作成
+                <AddIcon />
               </Link>
             </Typography>
           </Toolbar>
