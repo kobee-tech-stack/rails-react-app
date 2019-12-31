@@ -3,6 +3,7 @@ import { useCallback, useEffect } from "react";
 import { Button, CircularProgress, TextField } from "@material-ui/core";
 import { ActionType, useEditTask } from "../../context/edit";
 import { toTask } from "../../util";
+import { useUpdateTask } from "../../context/common/useUpdateTask";
 
 export const TaskEdit: React.FC = React.memo(() => {
   const {
@@ -43,16 +44,21 @@ export const TaskEdit: React.FC = React.memo(() => {
     [dispatch]
   );
 
+  const { updateTaskMutation } = useUpdateTask();
+
+  const handleSubmitButtonClick = useCallback(async () => {
+    await updateTaskMutation({
+      variables: {
+        id: Number(state.task?.id),
+        title: state.task?.title ?? "",
+        description: state.task?.description ?? ""
+      }
+    });
+  }, [state.task, updateTaskMutation]);
+
   useEffect(() => {
     dispatch({ type: ActionType.INITIALIZE, payload: task });
   }, [dispatch]);
-
-  // TODO: mutation
-  // const handleSubmitButtonClick = useCallback(async () => {
-  //   if (task) {
-  //     await updateTask(task).then(result => console.log(result));
-  //   }
-  // }, [task]);
 
   return (
     <div>
@@ -67,7 +73,11 @@ export const TaskEdit: React.FC = React.memo(() => {
           />
         </div>
       </>
-      <Button variant={"contained"} color={"primary"}>
+      <Button
+        variant={"contained"}
+        color={"primary"}
+        onClick={handleSubmitButtonClick}
+      >
         Submit
       </Button>
     </div>
