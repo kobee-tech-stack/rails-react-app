@@ -43,7 +43,7 @@ export const useShowTask = () => {
   return context;
 };
 
-export const TaskShowProvider: React.FC<{}> = ({ children }) => {
+export const TaskShowProvider: React.FC<{}> = React.memo(({ children }) => {
   const { id } = useParams();
   const { data, error, loading } = useTask(Number(id));
   const [state, dispatch] = useReducer(taskReducer, initialState);
@@ -58,4 +58,4 @@ export const TaskShowProvider: React.FC<{}> = ({ children }) => {
       {children}
     </TaskShowContext.Provider>
   );
-};
+});

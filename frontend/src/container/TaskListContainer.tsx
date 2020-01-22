@@ -1,20 +1,29 @@
-import React from "react";
-import { useHome } from "../context/home";
-import { CircularProgress } from "@material-ui/core";
+import React, { useEffect } from "react";
+import { loadTasks, useHomeState } from "../context/home";
+import { Button, CircularProgress } from "@material-ui/core";
+import { useTasks } from "../context/home/useTasks";
 import { arrayFromConnection } from "../util";
 import { TaskList } from "../component/TasklList";
 
 export const TaskListContainer: React.FC = () => {
-  const { error, data } = useHome();
+  const { data, error, loading } = useTasks();
+  const [{ tasks }, dispatch] = useHomeState();
+
+  useEffect(() => {
+    (async () => {
+      // @ts-ignore
+      await loadTasks(dispatch, arrayFromConnection(data?.tasks?.nodes ?? []));
+    })();
+  }, [data, dispatch]);
 
   if (error) {
     throw new Error(error.message);
   }
 
-  if (!data) {
+  if (loading) {
     return <CircularProgress />;
   }
 
-  const taskList = arrayFromConnection(data.tasks.nodes);
-  return <TaskList taskList={taskList} />;
+  // TODO: refetchの処理
+  return <TaskList taskList={tasks} />;
 };

@@ -66,7 +66,6 @@ const taskReducer: React.Reducer<State, Action> = (state, action) => {
 export const EditTaskProvider: React.FC<{}> = ({ children }) => {
   const { id } = useParams();
   const { data, error, loading } = useTask(Number(id));
-  // TODO: 以下の部分でdataをstateに変換する？
   const [state, dispatch] = useReducer(taskReducer, initialState);
   return (
     <EditTaskContext.Provider
