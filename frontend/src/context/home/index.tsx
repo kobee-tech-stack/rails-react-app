@@ -9,10 +9,24 @@ export enum ActionType {
   FAILURE_LOAD_TASKS = "FAILURE_LOAD_TASKS"
 }
 
-interface Action {
-  type: ActionType;
-  payload: any; // TODO: 型生成
-}
+type Action = Readonly<
+  | {
+      type: ActionType.START_LOAD_TASKS;
+      payload: {};
+    }
+  | {
+      type: ActionType.SUCCESS_LOAD_TASKS;
+      payload: {
+        tasks: ReadonlyArray<Task>;
+      };
+    }
+  | {
+      type: ActionType.FAILURE_LOAD_TASKS;
+      payload: {
+        errorMessage: string;
+      };
+    }
+>;
 
 type Dispatch = (action: Action) => void;
 
@@ -32,7 +46,7 @@ const homeReducer: React.Reducer<HomeState, Action> = (
     case ActionType.SUCCESS_LOAD_TASKS: {
       return {
         ...state,
-        tasks: action.payload,
+        tasks: action.payload.tasks,
         loading: false
       };
     }
@@ -40,11 +54,11 @@ const homeReducer: React.Reducer<HomeState, Action> = (
       return {
         ...state,
         loading: false,
-        errorMessage: action.payload
+        errorMessage: action.payload.errorMessage
       };
     }
     default: {
-      throw new Error(`Unsupported action type: ${action.type}`);
+      throw new Error("Unsupported action type");
     }
   }
 };
@@ -76,8 +90,16 @@ export const loadTasks = async (
 ) => {
   dispatch({ type: ActionType.START_LOAD_TASKS, payload: {} });
   try {
-    dispatch({ type: ActionType.SUCCESS_LOAD_TASKS, payload: tasks });
+    dispatch({
+      type: ActionType.SUCCESS_LOAD_TASKS,
+      payload: { tasks: tasks }
+    });
   } catch (e) {
-    dispatch({ type: ActionType.FAILURE_LOAD_TASKS, payload: e.toString() });
+    dispatch({
+      type: ActionType.FAILURE_LOAD_TASKS,
+      payload: {
+        errorMessage: e.toString()
+      }
+    });
   }
 };
