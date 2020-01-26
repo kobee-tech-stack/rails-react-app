@@ -2,6 +2,11 @@ import { createContext, useContext } from "react";
 import * as React from "react";
 import { initialState, HomeState } from "./state";
 import { Task } from "../../generated/graphql";
+import {
+  failureLoadTasksReducer,
+  startLoadTasksReducer,
+  successLoadTasksReducer
+} from "./reducer";
 
 export enum ActionType {
   START_LOAD_TASKS = "START_LOAD_TASKS",
@@ -38,24 +43,15 @@ const homeReducer: React.Reducer<HomeState, Action> = (
 ): HomeState => {
   switch (action.type) {
     case ActionType.START_LOAD_TASKS: {
-      return {
-        ...state,
-        loading: true
-      };
+      return startLoadTasksReducer(state, {});
     }
     case ActionType.SUCCESS_LOAD_TASKS: {
-      return {
-        ...state,
-        tasks: action.payload.tasks,
-        loading: false
-      };
+      return successLoadTasksReducer(state, { tasks: action.payload.tasks });
     }
     case ActionType.FAILURE_LOAD_TASKS: {
-      return {
-        ...state,
-        loading: false,
+      return failureLoadTasksReducer(state, {
         errorMessage: action.payload.errorMessage
-      };
+      });
     }
     default: {
       throw new Error("Unsupported action type");
